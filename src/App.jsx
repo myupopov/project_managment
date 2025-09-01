@@ -19,13 +19,19 @@ const projects = {
 
 function App() {
 
+  // Undefined is used to indicate that no project is selected
+  // Null is used to indicate that a project is being created
   const [selectedProjectId, setSelectedProjectId] = useState(undefined);
 
   const [projectsList, setProjectsList] = useState(projects);
 
   const handleProjectSelect = (project) => {
-    const projectId = Object.keys(projectsList).find(key => projectsList[key] === project);
-    setSelectedProjectId(projectId);
+    if (project === null) {
+      setSelectedProjectId(null);
+    } else {
+      const projectId = Object.keys(projectsList).find(key => projectsList[key] === project);
+      setSelectedProjectId(projectId);
+    }
   };
 
   const handleProjectsUpdate = (projects) => {

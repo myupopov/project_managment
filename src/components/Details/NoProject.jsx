@@ -1,4 +1,9 @@
-export default function NoProject() {
+export default function NoProject({ onProjectSelect }) {
+
+  const handleCreateProject = () => { 
+    onProjectSelect(null);
+  };
+
   return (
     <div>
       <img 
@@ -12,7 +17,7 @@ export default function NoProject() {
       <p className="text-stone-400 mb-4">
         Select a project or get started with a new one
       </p>
-      <button className="px-6 py-2 rounded-md bg-stone-800 hover:bg-stone-950 text-stone-400">
+      <button onClick={handleCreateProject} className="px-6 py-2 rounded-md bg-stone-800 hover:bg-stone-950 text-stone-400">
         Create new project
       </button>
     </div>

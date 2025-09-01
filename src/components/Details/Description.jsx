@@ -1,6 +1,20 @@
 import Task from './Description/Task'
+import { useRef } from 'react';
 
 export default function Description({ projects, projectId, project, onProjectsUpdate, onProjectSelect }) {
+
+  const taskInputRef = useRef();
+
+  const handleAddTask = () => {
+    const newTask = taskInputRef.current.value;
+
+    if (newTask.trim() === '') {
+      return;
+    }
+    const newProjects = { ...projects };
+    newProjects[projectId] = { ...newProjects[projectId], tasks: [...newProjects[projectId].tasks, newTask] };
+    onProjectsUpdate(newProjects);
+  };
 
   const handleDeleteProject = () => {
     const newProjects = { ...projects };
@@ -45,11 +59,12 @@ export default function Description({ projects, projectId, project, onProjectsUp
         <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>
         <div className="flex items-center gap-4">
           <input 
+            ref={taskInputRef}
             type="text"
             className="w-64 px-2 py-1 rounded-sm bg-stone-200"
             placeholder="Add task..."
           />
-          <button className="text-stone-600 hover:text-stone-950">
+          <button onClick={handleAddTask} className="text-stone-600 hover:text-stone-950">
             Add Task
           </button>
         </div>

@@ -7,17 +7,21 @@ export default function Details({ projects, projectId, onProjectsUpdate, onProje
   if (projectId === undefined) {
     return (
       <div className=" text-center w-3/4">
-        <NoProject />
+        <NoProject onProjectSelect={onProjectSelect} />
       </div>
     );
   }
 
   const project = projects[projectId];
 
-  if (project === null) {
+
+  if (projectId === null) {
     return (
       <div className=" text-center w-3/4">
-        <Creating />
+        <Creating 
+          onProjectsUpdate={onProjectsUpdate} 
+          onProjectSelect={onProjectSelect} 
+        />
       </div>
     );
   } else {
