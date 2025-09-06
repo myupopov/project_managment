@@ -1,9 +1,11 @@
 import Task from './Description/Task'
 import { useRef } from 'react';
+import ConfirmModal from './ConfirmModal';
 
 export default function Description({ projects, projectId, project, onProjectsUpdate, onProjectSelect }) {
 
   const taskInputRef = useRef();
+  const confirmModalRef = useRef();
 
   const handleAddTask = () => {
     const newTask = taskInputRef.current.value;
@@ -17,10 +19,17 @@ export default function Description({ projects, projectId, project, onProjectsUp
   };
 
   const handleDeleteProject = () => {
+    confirmModalRef.current.open();
+  };
+
+  const confirmDelete = () => {
     const newProjects = { ...projects };
     delete newProjects[projectId];
     onProjectsUpdate(newProjects);
     onProjectSelect(undefined);
+  };
+
+  const cancelDelete = () => {
   };
 
   const handleTaskDelete = (taskToDelete) => {
@@ -75,6 +84,14 @@ export default function Description({ projects, projectId, project, onProjectsUp
           ))}
         </ul>
       </div>
+      
+      <ConfirmModal 
+        ref={confirmModalRef}
+        onConfirm={confirmDelete}
+        cancelDelete={cancelDelete}
+        title="Do you really want to delete this project?"
+        isNotification={false}
+      />
     </div>
   );
 }

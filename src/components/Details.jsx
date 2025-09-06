@@ -21,6 +21,7 @@ export default function Details({ projects, projectId, onProjectsUpdate, onProje
         <Creating 
           onProjectsUpdate={onProjectsUpdate} 
           onProjectSelect={onProjectSelect} 
+          projects={projects}
         />
       </div>
     );
